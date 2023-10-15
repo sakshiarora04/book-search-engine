@@ -45,7 +45,7 @@ export const REMOVE_BOOK =gql`
 mutation Mutation($bookId: ID!) {
   removeBook(bookId: $bookId) {
     _id
-    username   
+    username       
     bookCount
     savedBooks {
       _id

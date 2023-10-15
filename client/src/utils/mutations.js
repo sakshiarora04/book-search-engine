@@ -29,8 +29,7 @@ mutation saveBook($bookDetails: BookInput){
     _id
     username    
     bookCount
-    savedBooks {
-      _id
+    savedBooks {      
       authors
       description
       bookId
@@ -47,8 +46,7 @@ mutation Mutation($bookId: ID!) {
     _id
     username       
     bookCount
-    savedBooks {
-      _id
+    savedBooks {      
       authors
       description
       bookId

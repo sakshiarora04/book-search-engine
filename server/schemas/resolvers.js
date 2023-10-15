@@ -1,39 +1,52 @@
-const { User, Thought } = require("../models");
+const { User } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id });
+        try {
+          const user = await User.findOne({ _id: context.user._id });
+          return user;
+        } catch (err) {
+          console.log("Unable to find user data", err);
+        }
       }
-      throw AuthenticationError;
+
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
-      const token = signToken(user);
-      return { token, user };
+      try {
+        const user = await User.create({ username, email, password });
+        const token = signToken(user);
+        return { token, user };
+      } catch (err) {
+        console.log(err);
+      }
     },
     login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
+      try {
+        const user = await User.findOne({ email });
 
-      if (!user) {
-        throw AuthenticationError;
+        if (!user) {
+          throw AuthenticationError("No user found");
+        }
+        const correctPw = await user.isCorrectPassword(password);
+
+        if (!correctPw) {
+          throw AuthenticationError("Incorrect Password");
+        }
+
+        const token = signToken(user);
+        return { token, user };
+      } catch (err) {
+        console.log("log error", err);
       }
-      const correctPw = await user.isCorrectPassword(password);
-
-      if (!correctPw) {
-        throw AuthenticationError;
-      }
-
-      const token = signToken(user);
-
-      return { token, user };
     },
-    saveBook: async (parent, {bookDetails}, context) => {
+    saveBook: async (parent, { bookDetails }, context) => {
       if (context.user) {
         try {
           const updatedUser = await User.findOneAndUpdate(
@@ -44,29 +57,29 @@ const resolvers = {
 
           return updatedUser;
         } catch (err) {
-          console.log('Save book error',err)
+          console.log("Save book error", err);
         }
       }
-      throw AuthenticationError;
-      ("You need to be logged in!");
+      throw AuthenticationError("You need to be logged in!");
+      
     },
-    removeBook: async(parents,{bookId},context)=>{
+    removeBook: async (parents, { bookId }, context) => {
       if (context.user) {
         try {
           const updatedUser = await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $pull: { savedBooks: {bookId:bookId} } },
+            { $pull: { savedBooks: { bookId: bookId } } },
             { new: true }
           );
 
           return updatedUser;
         } catch (err) {
-          console.log('Remove book error',err)
+          console.log("Remove book error", err);
         }
       }
-      throw AuthenticationError;
-      ("You need to be logged in!");
-    }
+      throw AuthenticationError("You need to be logged in!");
+      
+    },
   },
 };
 

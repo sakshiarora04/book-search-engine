@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-
 import { createUser } from '../utils/API';
 import Auth from '../utils/auth';
 
@@ -11,7 +10,7 @@ const SignupForm = () => {
   const [validated] = useState(true);
   // set state for alert
   const [showAlert, setShowAlert] = useState(true);
-
+ const [addUser,{data, error}]=useQuery(ADD_USER)
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });

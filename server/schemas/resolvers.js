@@ -6,7 +6,7 @@ const resolvers = {
     me: async (parent, args, context) => {
       if (context.user) {
         try {
-          const user = await User.findOne({ _id: context.user._id });
+          const user = await User.findOne({ _id: context.user._id });          
           return user;
         } catch (err) {
           console.log("Unable to find user data", err);
@@ -71,7 +71,6 @@ const resolvers = {
             { $pull: { savedBooks: { bookId: bookId } } },
             { new: true }
           );
-
           return updatedUser;
         } catch (err) {
           console.log("Remove book error", err);

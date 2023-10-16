@@ -54,7 +54,7 @@ const resolvers = {
             { $addToSet: { savedBooks: bookDetails } },
             { new: true, runValidators: true }
           );
-
+            console.log(updatedUser,  bookDetails)
           return updatedUser;
         } catch (err) {
           console.log("Save book error", err);

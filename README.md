@@ -41,41 +41,32 @@ To run this project locally, follow these steps:
 
 ## Usage
 
-- When user loadsthe search engine then they can see menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button. After searching for book by entering name in input field without logging in, several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site get displayed on same page.
+- When user loadsthe search engine then they can see menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button. After searching for book by entering name in input field without logging in, several search results, each featuring a book’s title, author, description, image, and a link on image to read that book on the Google Books site get displayed on same page.
 - When user clicks on login/signup option, then modal opens with toggle button to toggle between the option to log in or sign up. User needs to enter username, an email address, and a password for creating account.
-- After signup/ login button clicked, it will close modal if entered credentials are correct otherwise it will show an error. Now menu options will be changed and it will have options to Search for Books, an option to see my saved books, and Logout. Search results will include save button to save books to read it later.
+- After signup/ login button clicked, it will close modal if entered credentials are correct otherwise it will show an error. Now menu options will be changed and it will have options to Search for Books, an option to see my saved books, and Logout. Search results will include save button to save books information in account to read it later.
+- When user menu option to see saved books then page shows all of the books that saved to user' account, each featuring the book’s title, author, description, image, and a link on image to read that book on the Google Books site and a button to remove a book from my account
+- To remove book from saved books list, user will click remove button shown on saved book.
 
-
-WHEN I am logged in to the site
-THEN the menu options change to Search for Books, an option to see my saved books, and Logout
-WHEN I am logged in and enter a search term in the input field and click the submit button
-THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site and a button to save a book to my account
-WHEN I click on the Save button on a book
-THEN that book’s information is saved to my account
-WHEN I click on the option to see my saved books
-THEN I am presented with all of the books I have saved to my account, each featuring the book’s title, author, description, image, and a link to that book on the Google Books site and a button to remove a book from my account
-WHEN I click on the Remove button on a book
-THEN that book is deleted from my saved books list
-WHEN I click on the Logout button
-THEN I am logged out of the site and presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button  
-Mock-Up
-Let's start by revisiting the web app
 
 ## Technologies
 
 1. React.js
 2. React Router
-3. Chakra UI
-4. Javascript
-5. Vite
+3. Javascript
+4. Vite
+5. Apollo Client
+6. Apollo Server (Express)
+7. GraphQL
+8. jsonwebtoken
+9. MongoDB,Mongoose
 
 ## Credits
 
 References:
 
-https://chakra-templates.dev/navigation/
+https://stackoverflow.com/questions/60323551/how-to-exclude-password-field-in-the-response-in-mongodb
 
-https://stackoverflow.com/questions/38980051/reactjs-adding-active-class-to-button
+https://stackoverflow.com/questions/30202755/react-router-open-link-in-new-tab
 
 ## Contact Information
 

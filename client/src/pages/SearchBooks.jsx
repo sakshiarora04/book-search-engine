@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container, Col, Form, Button, Card, Row } from "react-bootstrap";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { SAVE_BOOK } from "../utils/mutations";
 import { searchGoogleBooks } from "../utils/API";
@@ -44,10 +44,10 @@ const SearchBooks = () => {
         bookId: book.id,
         authors: book.volumeInfo.authors || ["No author to display"],
         title: book.volumeInfo.title,
-        description: book.volumeInfo.description,
+        description: book.volumeInfo.description || "description unavailable",
         image: book.volumeInfo.imageLinks?.thumbnail || "",
-        link: book.volumeInfo.infoLink||""
-      }));      
+        link: book.volumeInfo.infoLink || "",
+      }));
       setSearchedBooks(bookData);
       setSearchInput("");
     } catch (error) {
@@ -60,18 +60,19 @@ const SearchBooks = () => {
     // find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
     // get token
+    console.log(bookToSave);
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
       return false;
     }
-    
+
     try {
       //pass book input to save book mutation
       const { data } = await saveBook({
         variables: { bookDetails: bookToSave },
       });
-      console.log(data)
+      console.log(data);
       if (!data) {
         throw new Error("something went wrong!");
       }
@@ -120,13 +121,19 @@ const SearchBooks = () => {
             return (
               <Col md="4" key={book.bookId}>
                 <Card border="dark">
-                  <Link to = {book.link} target="_blank" rel="noopener noreferrer">{book.image ? (
-                    <Card.Img
-                      src={book.image}
-                      alt={`The cover for ${book.title}`}
-                      variant="top"
-                    />
-                  ) : null}</Link>
+                  <Link
+                    to={book.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {book.image ? (
+                      <Card.Img
+                        src={book.image}
+                        alt={`The cover for ${book.title}`}
+                        variant="top"
+                      />
+                    ) : null}
+                  </Link>
                   <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
                     <p className="small">Authors: {book.authors}</p>

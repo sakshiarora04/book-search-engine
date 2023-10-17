@@ -65,11 +65,13 @@ const SearchBooks = () => {
     if (!token) {
       return false;
     }
+    
     try {
       //pass book input to save book mutation
       const { data } = await saveBook({
         variables: { bookDetails: bookToSave },
       });
+      console.log(data)
       if (!data) {
         throw new Error("something went wrong!");
       }

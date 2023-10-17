@@ -24,7 +24,7 @@ Check out the live demo of my portfolio [here](https://book-search04-85c93d510fd
 
 - Demo Video
 
-![demo.](./public/assets/images/portfolio%20demo.gif)
+![demo.](./client/src/assets/images/walkthrough%20book%20search.gif)
 
 ## Installation
 

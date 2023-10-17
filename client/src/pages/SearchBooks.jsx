@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container, Col, Form, Button, Card, Row } from "react-bootstrap";
-
+import {Link} from "react-router-dom";
 import Auth from "../utils/auth";
 import { SAVE_BOOK } from "../utils/mutations";
 import { searchGoogleBooks } from "../utils/API";
@@ -46,8 +46,8 @@ const SearchBooks = () => {
         title: book.volumeInfo.title,
         description: book.volumeInfo.description,
         image: book.volumeInfo.imageLinks?.thumbnail || "",
-      }));
-
+        link: book.volumeInfo.infoLink||""
+      }));      
       setSearchedBooks(bookData);
       setSearchInput("");
     } catch (error) {
@@ -118,13 +118,13 @@ const SearchBooks = () => {
             return (
               <Col md="4" key={book.bookId}>
                 <Card border="dark">
-                  {book.image ? (
+                  <Link to = {book.link} target="_blank" rel="noopener noreferrer">{book.image ? (
                     <Card.Img
                       src={book.image}
                       alt={`The cover for ${book.title}`}
                       variant="top"
                     />
-                  ) : null}
+                  ) : null}</Link>
                   <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
                     <p className="small">Authors: {book.authors}</p>
